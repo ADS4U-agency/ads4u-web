@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADS4U Agencija</title>
+  <style>
+    /* Osnovni stilovi */
+    body {
+      background-color: #000000;
+      color: #00ff4c;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background-color: #000000;
+      border-bottom: 1px solid #00ff4c;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+    header img {
+      height: 50px;
+      animation: spin 10s linear infinite;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    @keyframes spin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+    nav a {
+      color: #00ff4c;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #00cc3b;
+    }
+    .hero {
+      text-align: center;
+      padding: 140px 20px 100px; /* računamo na fiksirani header */
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section h2 {
+      border-left: 5px solid #00ff4c;
+      padding-left: 15px;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    ul {
+      list-style: square;
+      padding-left: 40px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+      margin: 20px;
+      min-width: 180px;
+    }
+    .stat h3 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .paketi {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .paket {
+      background: #111;
+      padding: 25px 20px;
+      margin: 10px;
+      border: 1px solid #00ff4c;
+      width: 280px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .paket:hover {
+      background-color: #00ff4c;
+      color: #000;
+      border-color: #00cc3b;
+      cursor: pointer;
+    }
+    .paket:hover p,
+    .paket:hover strong {
+      color: #000;
+    }
+    .paket h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    .paket p {
+      margin: 8px 0;
+      font-weight: 500;
+    }
+    .paket strong {
+      display: block;
+      margin-top: 15px;
+      font-size: 1.3rem;
+    }
+    .benefits {
+      background-color: #000;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto 60px;
+    }
+    .benefits ul {
+      list-style: square;
+      padding-left: 30px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .testimonials {
+      background-color: #111;
+      padding: 50px 20px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      border-radius: 12px;
+    }
+    .testimonial {
+      margin-bottom: 30px;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .testimonial strong {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      font-weight: 700;
+      text-align: right;
+      color: #00cc3b;
+    }
+    .contact-form {
+      padding: 40px 20px;
+      background-color: #111;
+      max-width: 600px;
+      margin: 0 auto 80px;
+      border-radius: 12px;
+    }
+    .contact-form h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      background-color: #000;
+      border: 1px solid #00ff4c;
+      color: #00ff4c;
+      font-size: 1rem;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #00cc3b;
+    }
+    .contact-form button {
+      padding: 14px;
+      background-color: #00ff4c;
+      color: #000;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    .contact-form button:hover {
+      background-color: #00cc3b;
+    }
+    .contact-form p {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+    .contact-form p strong {
+      color: #00ff4c;
+    }
+    footer {
+      background: #000;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid #00ff4c;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #00cc3b;
+    }
+    footer div.social-links a {
+      color: #00ff4c;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    footer div.social-links a:hover {
+      color: #00cc3b;
+    }
+
+    /* Back to top dugme */
+    #backToTop {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: #00ff4c;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      font-weight: bold;
+      color: #000;
+      z-index: 10000;
+      font-size: 1.6rem;
+      box-shadow: 0 0 10px #00ff4c;
+      transition: background-color 0.3s ease;
+    }
+    #backToTop:hover {
+      background-color: #00cc3b;
+    }
+
+    /* Responsivnost */
+    @media (max-width: 900px) {
+      .stats {
+        flex-direction: column;
+        align-items: center;
+      }
+      .stat {
+        margin: 15px 0;
+      }
+      .paketi {
+        flex-direction: column;
+        align-items: center;
+      }
+      .paket {
+        width: 90%;
+        max-width: 350px;
+      }
+      nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      nav a {
+        margin: 10px 0;
+      }
+      header {
+        padding: 15px 20px;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="ADS4U logo" title="ADS4U Agencija" />
+    <nav>
+      <a href="#usluge">Usluge</a>
+      <a href="#statistika">Rezultati</a>
+      <a href="#paketi">Paketi</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>ADS4U - Vaša digitalna raketa za rast</h1>
+    <p>Gradimo prisustvo koje prodaje. Bez prazne priče.</p>
+  </section>
+
+  <section class="section" id="usluge">
+    <h2>Usluge</h2>
+    <ul>
+      <li>Vođenje društvenih mreža (Instagram, Facebook, Google)</li>
+      <li>Kreiranje sadržaja (objave, storyji, reels)</li>
+      <li>Vođenje reklamnih kampanja (Meta, Google Ads)</li>
+      <li>SEO i optimizacija sajta</li>
+      <li>Praćenje statistike i analiza</li>
+    </ul>
+  </section>
+
+  <section class="section" id="statistika">
+    <h2>Rezultati koje pravimo</h2>
+    <div class="stats">
+      <div class="stat">
+        <h3>+430%</h3>
+        <p>rast interakcija</p>
+      </div>
+      <div class="stat">
+        <h3>+1200€</h3>
+        <p>više prodaje u prvom mesecu</p>
+      </div>
+      <div class="stat">
+        <h3>+38%</h3>
+        <p>više novih klijenata</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="paketi">
+    <h2>Paketi</h2>
+    <div class="paketi">
+      <div class="paket" tabindex="0">
+        <h3>Starter</h3>
+        <p>8 objava / mesec</p>
+        <p>Osnovna strategija</p>
+        <p>Praćenje rezultata</p>
+        <strong>250€ / mesec</strong>
+      </div>
+      <div class="paket" tabindex="0">
+        <h3>Boost</h3>
+        <p>12 objava + 4 Reels-a</p>
+        <p>Story paketi</p>
+        <p>Kalendar objava + dizajn</p>
+        <strong>500€ / mesec</strong>
+      </div>
+      <div class="paket" tabindex="0">
+        <h3>Pro Growth</h3>
+        <p>Full sadržaj + Ads</p>
+        <p>SEO + mesečna analiza</p>
+        <p>Personalizovana strategija</p>
+        <strong>1000€ / mesec</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <h2>Zašto baš ADS4U?</h2>
+    <ul>
+      <li>Brzi rezultati i konkretne promene</li>
+      <li>Jasna komunikacija i plan rada</li>
+      <li>Bez komplikacija – samo rast</li>
+      <li>Transparentnost i mesečni izveštaji</li>
+      <li>Podrška dostupna 24/7</li>
+    </ul>
+  </section>
+
+  <section class="testimonials">
+    <h2>Šta kažu naši klijenti</h2>
+    <div class="testimonial">
+      <p>„Zahvaljujući ADS4U, povećali smo mesečni promet za 40%. Njihov tim zna šta radi!“</p>
+      <strong>- Marko, vlasnik restorana</strong>
+    </div>
+    <div class="testimonial">
+      <p>„Od prve reklame do prvih ozbiljnih klijenata nije prošlo ni 10 dana. Svaka preporuka.“</p>
+      <strong>- Ana, fitnes trener</strong>
+    </div>
+    <div class="testimonial">
+      <p>„Sajt, Instagram, reklame – sve u jednom. Jednostavno rečeno: ADS4U je sve što mi treba.“</p>
+      <strong>- Nemanja, vodoinstalater</strong>
+    </div>
+  </section>
+
+  <section class="contact-form" id="kontakt">
+    <h2>Kontaktirajte nas</h2>
+    <form id="contactForm" action="mailto:ads4u.agency00@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="ime" placeholder="Vaše ime" required />
+      <input type="email" name="email" placeholder="Vaš email" required />
+      <textarea name="poruka" placeholder="Poruka..." rows="5" required></textarea>
+      <button type="submit">Pošalji</button>
+    </form>
+    <p>Ili nas kontaktirajte direktno:</p>
+    <p>📞 <strong>065 540 2010</strong></p>
+    <p>📧 <strong>ads4u.agency00@gmail.com</strong></p>
+  </section>
+
+  <footer>
+    <p>© 2025 ADS4U. Sva prava zadržana.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/ads4u.agency" target="_blank" rel="noopener">Instagram</a> |
+      <a href="https://www.facebook.com/ads4u.agency" target="_blank" rel="noopener">Facebook</a> |
+      <a href="https://www.linkedin.com/company/ads4u" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p style="margin-top: 10px; font-weight: 700;">Vlasnik agencije: Ognjen Pejčić</p>
+  </footer>
+
+  <button id="backToTop" title="Idi na vrh">↑</button>
+
+  <script>
+    // Back to top dugme
+    const backToTopButton = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Poruka nakon slanja forme
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+      alert('Hvala što ste nas kontaktirali! Odgovorićemo vam uskoro.');
+    });
+  </script>
+
+</body>
+</html>
